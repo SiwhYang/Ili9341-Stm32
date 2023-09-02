@@ -8,7 +8,7 @@ UI has two function :
 1. Displaying Solid Colors: We send signals to tell the ILI9341 display to show a full-screen solid color.
 2. Image Display: We load *.png images, resize them to 320 x 240 pixels, and then transmit the image data to be displayed on the ILI9341.
 
-Managing Limited Flash Storage
+Managing Limited Flash Storage : 
 It's important to note that the STM32 board doesn't have sufficient flash storage to store an entire image. To overcome this limitation, we implement a linked list data structure to efficiently manage and display partial segments of the image. Once a segment is displayed, we free up the memory, allowing us to sequentially display the entire image.
 
 ---------------------------------------------------------------------------------------------------------------------------------
