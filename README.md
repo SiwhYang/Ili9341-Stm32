@@ -2,9 +2,8 @@
 
 ILI9341 is drived by stm32f303 discovery board. Here we use GPIO to simulate spi interface to control ili9341,
 and default usart to send signal to stm32.
-
-   usart           spi
-PC --------> stm32 -------> Ili9341
+             
+PC ----(usart )----> stm32 ---(spi)----> Ili9341
 
 UI has two function :
 1. send signal to tell ili9341 show full screen pure color
@@ -18,8 +17,7 @@ note : stm32 doesn's has enought flash to store entire image data, here we use l
 使用 stm32f303 discovery board 來控制 Ili9341，這裡使用GPIO來模擬Spi協定來與ili9341溝通，
 並使用stm32自帶的usart功能來與PC做溝通
 
- usart            spi
-PC --------> stm32 -------> Ili9341
+PC ----(usart )----> stm32 ---(spi)----> Ili9341
 
 UI 目前有兩個功能:
 1. 傳送訊號讓ili9341 顯示滿螢幕純色
