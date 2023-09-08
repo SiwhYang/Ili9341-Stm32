@@ -25,7 +25,7 @@ namespace MasterUI
             InitializeComponent();
         }
         // SerialPort 
-        SerialPort serialport = new SerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
+        SerialPort serialport = new SerialPort("COM5", 115200, Parity.None, 8, StopBits.One);
         // Image system
         int imageWidth = 240;
         int imageLength = 320;

@@ -4,6 +4,8 @@
 #include "delay.h"
 #include "list.h"
 
+
+
 // LCD Chip select
 #define LCD_CS_Port 	 GPIOA
 #define LCD_CS_Pin  	 GPIO_Pin_0
@@ -78,6 +80,7 @@
 #define GRAY            0X8430  
 
 
+
 // Define Init
 void LCD_Init();
 // Define communication
@@ -89,6 +92,8 @@ void LCD_Write_Data16(u16 data);
 void LCD_SetCursor(u16 Xpos, u16 Ypos);
 void LCD_Clear(u16 color);
 void LCD_showPattern(Node* first);
+// modify gamma
+void LCD_setPositiveGamma(Node_8* first_8, u8 *PositiveGamma_setting);
 
 #endif
 

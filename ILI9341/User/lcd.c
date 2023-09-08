@@ -3,6 +3,28 @@
 #include "stm32f30x_spi.h"
 #include "STDLIB.H"
 
+
+u8 PositiveGamma_setting [15]  = {0x0F,0x28,0x29,0x0D,0x11,0x09,0x54,
+																 0XA8,0x46,0x0F,0x1A,0x0E,0x14,0x0C,0x00};
+																 
+/*
+u8 PositiveGamma_value_VP63 = 0x0F;
+u8 PositiveGamma_value_VP62 = 0x28;
+u8 PositiveGamma_value_VP61 = 0x29;
+u8 PositiveGamma_value_VP59 = 0x0D;
+u8 PositiveGamma_value_VP57 = 0x11;
+u8 PositiveGamma_value_VP50 = 0x09;
+u8 PositiveGamma_value_VP43 = 0x54;
+u8 PositiveGamma_value_VP29_36 = 0XA8;
+u8 PositiveGamma_value_VP20 = 0x46;
+u8 PositiveGamma_value_VP13 = 0x0F;
+u8 PositiveGamma_value_VP6 = 0x1A;
+u8 PositiveGamma_value_VP4 = 0x0E;
+u8 PositiveGamma_value_VP2 = 0x14;
+u8 PositiveGamma_value_VP1 = 0x0C;
+u8 PositiveGamma_value_VP0 = 0x00;
+*/
+
 void LCD_Init()	
 {
 	// init SPI
@@ -96,6 +118,7 @@ void LCD_Init()
 	LCD_Write_Data(0x00); 
 	LCD_Write_Command(0x26);    //Gamma curve selected 
 	LCD_Write_Data(0x01); 
+	/*
 	LCD_Write_Command(0xE0);    //Set Gamma 
 	LCD_Write_Data(0x0F); 
 	LCD_Write_Data(0x2A); 
@@ -127,7 +150,44 @@ void LCD_Init()
 	LCD_Write_Data(0x0F); 
 	LCD_Write_Data(0x3F); 
 	LCD_Write_Data(0x3F); 
+	LCD_Write_Data(0x0F); */
+	
+	
+	LCD_Write_Command(0xE0);    //Set Gamma 
 	LCD_Write_Data(0x0F); 
+	LCD_Write_Data(0x28); 
+	LCD_Write_Data(0x29); 
+	LCD_Write_Data(0x0D); 
+	LCD_Write_Data(0x11); 
+	LCD_Write_Data(0x09); 
+	LCD_Write_Data(0x54); 
+	LCD_Write_Data(0XA8); 
+	LCD_Write_Data(0x46); 
+	LCD_Write_Data(0x0F); 
+	LCD_Write_Data(0x1A); 
+	LCD_Write_Data(0x0E); 
+	LCD_Write_Data(0x14); 
+	LCD_Write_Data(0x0C); 
+	LCD_Write_Data(0x00); 		 
+	LCD_Write_Command(0XE1);    //Set Gamma 
+	LCD_Write_Data(0x00);
+	LCD_Write_Data(0x1B); 
+	LCD_Write_Data(0x1E); 
+	LCD_Write_Data(0x07); 
+	LCD_Write_Data(0x13); 
+	LCD_Write_Data(0x07); 
+	LCD_Write_Data(0x2A); 
+	LCD_Write_Data(0x47); 
+	LCD_Write_Data(0x39); 
+	LCD_Write_Data(0x03); 
+	LCD_Write_Data(0x09); 
+	LCD_Write_Data(0x0C); 
+	LCD_Write_Data(0x35); 
+	LCD_Write_Data(0x3D); 
+	LCD_Write_Data(0x0F); 
+	 
+	
+	
 	LCD_Write_Command(0x2B); 
 	LCD_Write_Data(0x00);
 	LCD_Write_Data(0x00);
@@ -222,5 +282,42 @@ void LCD_showPattern(Node* first)
       LCD_Write_Data16(node->data);
     }
 }
+
+
+
+
+void LCD_setPositiveGamma(Node_8* first_8, u8* PositiveGamma_setting)
+{
+	Node_8* node_8 = first_8;
+	LCD_Write_Command(0xE0);
+	
+	for (u8 i = 0 ; i < 15 ; i++)
+	{
+		if (node_8 != NULL)
+		{
+			node_8 = node_8->nextnode_8;
+			LCD_Write_Data(node_8->data);
+			*(PositiveGamma_setting + i) = node_8->data; 
+		}
+	}	
+	node_8 = first_8;
+	LCD_Write_Command(0xE1);
+	
+	for (u8 i = 0 ; i < 15 ; i++)
+	{
+		if (node_8 != NULL)
+		{
+			node_8 = node_8->nextnode_8;
+			LCD_Write_Data(node_8->data);
+			*(PositiveGamma_setting + i) = node_8->data; 
+		}
+	}	
+	
+	
+}
+
+
+
+
 
 

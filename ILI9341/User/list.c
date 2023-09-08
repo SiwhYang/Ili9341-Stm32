@@ -1,11 +1,8 @@
 #include "list.h"
 
-
 // reference to --->> https://codimd.mcl.math.ncu.edu.tw/s/B1rd5-sM4   
 
 Node* current, * first, * previous;
-
-
 
 
 void Push_back(u16 a) 
@@ -38,6 +35,43 @@ void FreeList(Node* first)
 	first->data = NULL;// this line will keep first node safe
 }
  
+
+
+
+Node_8* current_8, * first_8, * previous_8;
+
+
+void Push_back_8(u8 a) 
+{                           
+	Node_8* newnode_8 = (Node_8*)malloc(sizeof(Node_8));
+	newnode_8->data = a;
+	newnode_8->nextnode_8 = NULL;
+	if ((first_8->data == NULL)|(first_8 == NULL)) {
+		first_8 = newnode_8;
+	}
+	else {
+		Node_8* current_8 = first_8;
+		while (current_8->nextnode_8 != NULL) {
+			current_8 = current_8->nextnode_8;
+		}
+		current_8->nextnode_8 = newnode_8;
+	}
+}
+
+void FreeList_8(Node_8* first_8) 
+{                     
+	Node_8* current_8, * tmp_8;
+	current_8 = first_8->nextnode_8; // this line will keep first node safe
+	while (current_8 != NULL) {
+		tmp_8 = current_8;
+		current_8 = current_8->nextnode_8;
+		free(tmp_8);
+	}
+	first_8->nextnode_8 = NULL; 
+	first_8->data = NULL;// this line will keep first node safe
+}
+ 
+
 /*
 void PrintList(Node* first) {                   
 	Node* node = first;
@@ -51,28 +85,5 @@ void PrintList(Node* first) {
 		}
 		//printf("\n");
 	}
-}
-*/
-
-
-/*
-void Linkedlist_init()
-{	
-	u16 num[] = { 0xFFFF };                
-	int i;
-	for (i = 0; i < 1; i++) {
-		current = (Node*)malloc(sizeof(Node));
-		if (i == 0) {
-			first = current;
-		}
-		else {
-			previous->nextnode = current;
-		}
-		current->data = num[i];
-		current->nextnode = NULL;
-		previous = current;
-	}
-	
-	//FreeList(first);
 }
 */

@@ -63,3 +63,16 @@ D:\Project\Stm32\Stm32\STM32F303VCT6\ILI9341_Host\HostUI\MasterUI\obj\Debug\Mast
 D:\Project\Stm32\Stm32\STM32F303VCT6\ILI9341_Host\HostUI\MasterUI\obj\Debug\MasterUI.csproj.CopyComplete
 D:\Project\Stm32\Stm32\STM32F303VCT6\ILI9341_Host\HostUI\MasterUI\obj\Debug\MasterUI.exe
 D:\Project\Stm32\Stm32\STM32F303VCT6\ILI9341_Host\HostUI\MasterUI\obj\Debug\MasterUI.pdb
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\bin\Debug\MasterUI.exe.config
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\bin\Debug\MasterUI.exe
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\bin\Debug\MasterUI.pdb
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\bin\Debug\SerialPort.dll
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\obj\Debug\MasterUI.csproj.AssemblyReference.cache
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\obj\Debug\MasterUI.csproj.SuggestedBindingRedirects.cache
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\obj\Debug\MasterUI.Form1.resources
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\obj\Debug\MasterUI.Properties.Resources.resources
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\obj\Debug\MasterUI.csproj.GenerateResource.cache
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\obj\Debug\MasterUI.csproj.CoreCompileInputs.cache
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\obj\Debug\MasterUI.csproj.CopyComplete
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\obj\Debug\MasterUI.exe
+D:\Projects\Embedded\Ili9341-Stm32\HostUI\MasterUI\obj\Debug\MasterUI.pdb

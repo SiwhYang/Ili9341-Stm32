@@ -3,23 +3,54 @@
 #include "list.h"
 #include "lcd.h"
 
+
 u8 opcode = 0x00;
 u8 tempcolor = 0x00;
 u16 combined_color = 0x0000;
+u8 gamma_setting = 0x00;
+extern u8 PositiveGamma_setting[15];
+
+/*
+extern u8 PositiveGamma_value_VP63 ;
+extern u8 PositiveGamma_value_VP62 ;
+extern u8 PositiveGamma_value_VP61 ;
+extern u8 PositiveGamma_value_VP59 ;
+extern u8 PositiveGamma_value_VP57 ;
+extern u8 PositiveGamma_value_VP50 ;
+extern u8 PositiveGamma_value_VP43 ;
+extern u8 PositiveGamma_value_VP29_36 ;
+extern u8 PositiveGamma_value_VP20 ;
+extern u8 PositiveGamma_value_VP13 ;
+extern u8 PositiveGamma_value_VP6 ;
+extern u8 PositiveGamma_value_VP4 ;
+extern u8 PositiveGamma_value_VP2 ;
+extern u8 PositiveGamma_value_VP1 ;
+extern u8 PositiveGamma_value_VP0 ;
+*/
 
 /*
 4 bits opcode 0 - 16 ->>  0x00 - 0x0F 
 
 0 : initial state
+
 1 : first u4 color
 2 : second u4 color
 3 : third u4 color 
 4 : fourth u4 color
-5 : start showing color
-6 : start writting image from host
+5 : start showing pure color
+
+6 : start writting list
+7 : pushback
+8 : showing pattern from list
+
+9 : start adjust Gamma
+10:
+
+
 
 */
 extern Node* current, * first, * previous;
+extern Node_8* current_8, * first_8, * previous_8;
 
 void Usart_Init(void)	
 {
@@ -107,8 +138,97 @@ void USART3_IRQHandler (void)
 				FreeList(first);
 				break;
 			case 0x09:
-				USART3_printf(first);	
-				break;	
+				for (int i = 0; i < 15 ; i ++)
+				{
+					USART_SendData(USART3,*(PositiveGamma_setting + i));
+					Delay_ms(1);
+				}
+					break;	
+				case 0x0A :
+					gamma_setting = ((gamma_setting & ~0x0F)) | tempcolor;
+					break;
+				case 0x0B :
+					gamma_setting = ((gamma_setting & ~0xF0)) | tempcolor <<4 ;
+					break;
+				case 0x0C :
+					LCD_setPositiveGamma(first_8, PositiveGamma_setting);
+					FreeList_8(first_8);
+				break;
+				case 0x0D :
+					Push_back_8(gamma_setting);
+					break;
+				case 0x0E :
+					LCD_Write_Command(0xE0);    //Set Gamma 
+					LCD_Write_Data(0x00); 
+					LCD_Write_Data(0x28); 
+					LCD_Write_Data(0x20); 
+					LCD_Write_Data(0x0D); 
+					LCD_Write_Data(0x11); 
+					LCD_Write_Data(0x00); 
+					LCD_Write_Data(0x50); 
+					LCD_Write_Data(0XA8); 
+					LCD_Write_Data(0x46); 
+					LCD_Write_Data(0x0F); 
+					LCD_Write_Data(0x10); 
+					LCD_Write_Data(0x00); 
+					LCD_Write_Data(0x00); 
+					LCD_Write_Data(0x0C); 
+					LCD_Write_Data(0x00); 
+/*				
+					LCD_Write_Command(0XE1);    //Set Gamma 
+					LCD_Write_Data(0x00);
+					LCD_Write_Data(0x1B); 
+					LCD_Write_Data(0x1E); 
+					LCD_Write_Data(0x00); 
+					LCD_Write_Data(0x13); 
+					LCD_Write_Data(0x00); 
+					LCD_Write_Data(0x20); 
+					LCD_Write_Data(0x47); 
+					LCD_Write_Data(0x39); 
+					LCD_Write_Data(0x03); 
+					LCD_Write_Data(0x00); 
+					LCD_Write_Data(0x0C); 
+					LCD_Write_Data(0x30); 
+					LCD_Write_Data(0x30); 
+					LCD_Write_Data(0x0F); 
+					*/
+					break;	
+				case 0x0F :
+					LCD_Write_Command(0xE0);
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+/*				
+					LCD_Write_Command(0xE1);
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 
+					LCD_Write_Data(0xFF); 	
+					*/
+					break;	
 		}
 		USART_SendData(USART3,inputcommand);
 		}
