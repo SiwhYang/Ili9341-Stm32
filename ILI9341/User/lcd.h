@@ -94,6 +94,7 @@ void LCD_Clear(u16 color);
 void LCD_showPattern(Node* first);
 // modify gamma
 void LCD_setPositiveGamma(Node_8* first_8, u8 *PositiveGamma_setting);
+void LCD_TestSetGamma(u8* PositiveGamma_setting);
 
 #endif
 

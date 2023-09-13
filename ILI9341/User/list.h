@@ -13,8 +13,6 @@ void Push_back(u16 a);
 void FreeList(Node* first);
 
 
-
-
 typedef struct Node_8
 {
 	u8 data;

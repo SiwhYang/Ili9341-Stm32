@@ -36,8 +36,6 @@ void FreeList(Node* first)
 }
  
 
-
-
 Node_8* current_8, * first_8, * previous_8;
 
 
@@ -71,19 +69,3 @@ void FreeList_8(Node_8* first_8)
 	first_8->data = NULL;// this line will keep first node safe
 }
  
-
-/*
-void PrintList(Node* first) {                   
-	Node* node = first;
-	if (first == NULL) {
-		printf("List is empty!\n");
-	}
-	else {
-		while (node != NULL) {
-			printf("%d ", node->data);
-			node = node->nextnode;
-		}
-		//printf("\n");
-	}
-}
-*/

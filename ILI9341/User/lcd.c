@@ -5,25 +5,8 @@
 
 
 u8 PositiveGamma_setting [15]  = {0x0F,0x28,0x29,0x0D,0x11,0x09,0x54,
-																 0XA8,0x46,0x0F,0x1A,0x0E,0x14,0x0C,0x00};
-																 
-/*
-u8 PositiveGamma_value_VP63 = 0x0F;
-u8 PositiveGamma_value_VP62 = 0x28;
-u8 PositiveGamma_value_VP61 = 0x29;
-u8 PositiveGamma_value_VP59 = 0x0D;
-u8 PositiveGamma_value_VP57 = 0x11;
-u8 PositiveGamma_value_VP50 = 0x09;
-u8 PositiveGamma_value_VP43 = 0x54;
-u8 PositiveGamma_value_VP29_36 = 0XA8;
-u8 PositiveGamma_value_VP20 = 0x46;
-u8 PositiveGamma_value_VP13 = 0x0F;
-u8 PositiveGamma_value_VP6 = 0x1A;
-u8 PositiveGamma_value_VP4 = 0x0E;
-u8 PositiveGamma_value_VP2 = 0x14;
-u8 PositiveGamma_value_VP1 = 0x0C;
-u8 PositiveGamma_value_VP0 = 0x00;
-*/
+																  0xA8,0x46,0x0F,0x1A,0x0E,0x14,0x0C,0x00};
+									
 
 void LCD_Init()	
 {
@@ -290,32 +273,46 @@ void LCD_setPositiveGamma(Node_8* first_8, u8* PositiveGamma_setting)
 {
 	Node_8* node_8 = first_8;
 	LCD_Write_Command(0xE0);
-	
-	for (u8 i = 0 ; i < 15 ; i++)
-	{
-		if (node_8 != NULL)
+	int i = 0;
+		while (node_8 != NULL) 
 		{
-			node_8 = node_8->nextnode_8;
-			LCD_Write_Data(node_8->data);
+      LCD_Write_Data(node_8->data);
 			*(PositiveGamma_setting + i) = node_8->data; 
+			node_8 = node_8->nextnode_8;
+			i++;
 		}
-	}	
+		
 	node_8 = first_8;
 	LCD_Write_Command(0xE1);
+	i = 0;
+		while (node_8 != NULL) 
+		{
+      LCD_Write_Data(node_8->data);
+			*(PositiveGamma_setting + i) = node_8->data; 
+			node_8 = node_8->nextnode_8;
+			i++;
+		}
+}
 	
+
+
+void LCD_TestSetGamma(u8* PositiveGamma_setting)
+{
+	LCD_Write_Command(0xE0);
 	for (u8 i = 0 ; i < 15 ; i++)
 	{
-		if (node_8 != NULL)
-		{
-			node_8 = node_8->nextnode_8;
-			LCD_Write_Data(node_8->data);
-			*(PositiveGamma_setting + i) = node_8->data; 
-		}
-	}	
+		*(PositiveGamma_setting + i) = 0xFF;
+		LCD_Write_Data(*(PositiveGamma_setting + i));
+	}
 	
-	
-}
+	LCD_Write_Command(0xE1);
+	for (u8 i = 0 ; i < 15 ; i++)
+	{
+		*(PositiveGamma_setting + i) = 0xFF;
+		LCD_Write_Data(*(PositiveGamma_setting + i));
+	}
 
+}
 
 
 

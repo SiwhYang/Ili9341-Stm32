@@ -5,9 +5,9 @@
 
 
 u8 opcode = 0x00;
-u8 tempcolor = 0x00;
+u8 data = 0x00;
 u16 combined_color = 0x0000;
-u8 gamma_setting = 0x00;
+u8 gamma_setting = 0xFF; // 0x00 cause error 
 extern u8 PositiveGamma_setting[15];
 
 /*
@@ -44,9 +44,7 @@ extern u8 PositiveGamma_value_VP0 ;
 8 : showing pattern from list
 
 9 : start adjust Gamma
-10:
-
-
+10: 
 
 */
 extern Node* current, * first, * previous;
@@ -57,7 +55,6 @@ void Usart_Init(void)
 	GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStruct;
 	NVIC_InitTypeDef NVIC_InitStruct;
-	
 	
 	RCC_AHBPeriphClockCmd (RCC_AHBPeriph_GPIOC, ENABLE); //enable usart time clock of gpio
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3,ENABLE); // enable usart time clock which locate in APB2
@@ -107,21 +104,21 @@ void USART3_IRQHandler (void)
 	{		
 		inputcommand = USART_ReceiveData(USART3);
 		opcode = (inputcommand >> 4 ) & 0xF; 
-		tempcolor = (inputcommand  )& 0xF;
+		data = (inputcommand  )& 0xF;
 		
 		switch (opcode)	
 		{
 			case 0x01 :
-					combined_color = ((combined_color & ~0x000F)) | tempcolor;			
+				combined_color = ((combined_color & ~0x000F)) | data;			
 				break;
 			case 0x02 :
-					combined_color = ((combined_color & ~0x00F0)) | tempcolor <<4 ;
+				combined_color = ((combined_color & ~0x00F0)) | data <<4 ;
 				break;
 			case 0x03 :
-					combined_color = ((combined_color & ~0x0F00)) | tempcolor <<8;
-			break;
+				combined_color = ((combined_color & ~0x0F00)) | data <<8;
+				break;
 			case 0x04:
-					combined_color = ((combined_color & ~0xF000)) | tempcolor <<12;
+				combined_color = ((combined_color & ~0xF000)) | data <<12;
 				break;
 			case 0x05:
 				LCD_Clear(combined_color);
@@ -143,95 +140,29 @@ void USART3_IRQHandler (void)
 					USART_SendData(USART3,*(PositiveGamma_setting + i));
 					Delay_ms(1);
 				}
-					break;	
-				case 0x0A :
-					gamma_setting = ((gamma_setting & ~0x0F)) | tempcolor;
-					break;
-				case 0x0B :
-					gamma_setting = ((gamma_setting & ~0xF0)) | tempcolor <<4 ;
-					break;
-				case 0x0C :
-					LCD_setPositiveGamma(first_8, PositiveGamma_setting);
-					FreeList_8(first_8);
+				break;	
+			case 0x0A :
+				gamma_setting = ((gamma_setting & ~0x0F)) | data;
 				break;
-				case 0x0D :
-					Push_back_8(gamma_setting);
-					break;
-				case 0x0E :
-					LCD_Write_Command(0xE0);    //Set Gamma 
-					LCD_Write_Data(0x00); 
-					LCD_Write_Data(0x28); 
-					LCD_Write_Data(0x20); 
-					LCD_Write_Data(0x0D); 
-					LCD_Write_Data(0x11); 
-					LCD_Write_Data(0x00); 
-					LCD_Write_Data(0x50); 
-					LCD_Write_Data(0XA8); 
-					LCD_Write_Data(0x46); 
-					LCD_Write_Data(0x0F); 
-					LCD_Write_Data(0x10); 
-					LCD_Write_Data(0x00); 
-					LCD_Write_Data(0x00); 
-					LCD_Write_Data(0x0C); 
-					LCD_Write_Data(0x00); 
-/*				
-					LCD_Write_Command(0XE1);    //Set Gamma 
-					LCD_Write_Data(0x00);
-					LCD_Write_Data(0x1B); 
-					LCD_Write_Data(0x1E); 
-					LCD_Write_Data(0x00); 
-					LCD_Write_Data(0x13); 
-					LCD_Write_Data(0x00); 
-					LCD_Write_Data(0x20); 
-					LCD_Write_Data(0x47); 
-					LCD_Write_Data(0x39); 
-					LCD_Write_Data(0x03); 
-					LCD_Write_Data(0x00); 
-					LCD_Write_Data(0x0C); 
-					LCD_Write_Data(0x30); 
-					LCD_Write_Data(0x30); 
-					LCD_Write_Data(0x0F); 
-					*/
-					break;	
-				case 0x0F :
-					LCD_Write_Command(0xE0);
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-/*				
-					LCD_Write_Command(0xE1);
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 
-					LCD_Write_Data(0xFF); 	
-					*/
-					break;	
-		}
+			case 0x0B :
+				gamma_setting = ((gamma_setting & ~0xF0)) | data <<4 ;
+				break;
+			case 0x0C :
+				LCD_setPositiveGamma(first_8, PositiveGamma_setting);
+				FreeList_8(first_8);
+				break;
+			case 0x0D :
+				Push_back_8(gamma_setting);
+				break;
+			case 0x0E :
+				LCD_TestSetGamma(PositiveGamma_setting);
+				break;	
+			case 0x0F :
+				NVIC_SystemReset();
+				break;	
+			}
 		USART_SendData(USART3,inputcommand);
-		}
+	}
 }
 
 
