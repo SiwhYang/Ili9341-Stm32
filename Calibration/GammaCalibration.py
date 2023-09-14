@@ -9,6 +9,12 @@ import csv
 import sys
 from GammaMeasurement import Gamma_class
 
+
+init_Gamma_setting = [0x0F,0x28,0x29,0x0D,0x11,0x09,0x54,\
+					 0xA8,0x46,0x0F,0x1A,0x0E,0x14,0x0C,0x00, \
+					 0x00,0x1B,0x1E,0x07,0x13,0x07,0x2A,0x47, \
+					 0x39,0x03,0x09,0x0C,0x35,0x3D,0x0F ]			
+
 Gammasetting = []
 Gamma = Gamma_class()
 
@@ -72,16 +78,23 @@ if __name__ == '__main__':
     MCU_Reset()
     time.sleep(1)
     Gamma = Gamma_class()
+    WriteGamma_setting(init_Gamma_setting)
     Gammasetting = LoadGamma_setting() # // load initial gamma setting, prepare to be modified
-    for i in range(0,len(Gammasetting)): # // modify gamma setting
+    GammaLen = (len(Gammasetting)) # // GammaLen = 30
+    OneSide_GammaLen = int (GammaLen/2) # // OneSide_GammaLen = 15
+    GammaLen = GammaLen - 1 # // GammaLen = 29 for index
+    for i in range(0, OneSide_GammaLen): # // modify gamma setting
         BGammasetting = Gammasetting.copy()
         for j in range (0,3): # // modify gamma for 0 ~ 3 times    
                 BGammasetting[i] = (Gammasetting[i]+j*5)
-                BGammasetting[15+i] = (Gammasetting[15+i]+j*5)
+                # BGammasetting[OneSide_GammaLen+i] = (Gammasetting[OneSide_GammaLen+i]+j*5) # // for +- gamma alignment
+                BGammasetting[GammaLen-i] = (Gammasetting[GammaLen-i]+j*5)  # // for inverse +- gamma alignment
                 WriteGamma_setting(BGammasetting) # // apply modified gamma setting
                 AGammasetting = LoadGamma_setting() # // load modified gamma setting
                 for k in range(0,len(AGammasetting)): # // turn modified gamma setting to hex and store in csv
                     AGammasetting[k] = (hex(AGammasetting[k]))
+                # print("modified gamma index = ",i)
+                # print(AGammasetting)
                 Filename = str(i) + '_' + str(j) + '_' + 'Gamma'
                 filename = Filename + '.csv'
                 full_path = os.path.join('GammaData',filename)
@@ -89,26 +102,3 @@ if __name__ == '__main__':
                     writer = csv.writer(fd)
                     writer.writerow(AGammasetting)
                 Gamma.measure(2,full_path)
-
-    # MCU_Reset()
-    # time.sleep(1)
-    # Gamma = Gamma_class()
-    # Gammasetting = LoadGamma_setting() # // load initial gamma setting, prepare to be modified
-    # BGammasetting = Gammasetting.copy()
-
-    # for i in range(1,len(Gammasetting)): # // modify gamma setting
-    #     for j in range (0,3): # // modify gamma for 0 ~ 3 times    
-    #         BGammasetting[i] = (Gammasetting[i]+j*5)
-    #     # Gammasetting[0] + j
-    #         WriteGamma_setting(BGammasetting) # // apply modified gamma setting
-    #         AGammasetting = LoadGamma_setting() # // load modified gamma setting
-    #         for k in range(0,len(AGammasetting)): # // turn modified gamma setting to hex and store in csv
-    #             AGammasetting[k] = (hex(AGammasetting[k]))
-    #         Filename = str(i) + '_' + str(j) + '_' + 'Gamma'
-    #         filename = Filename + '.csv'
-    #         full_path = os.path.join('GammaData',filename)
-    #         with open(full_path, 'a') as fd:
-    #             writer = csv.writer(fd)
-    #             writer.writerow(AGammasetting)
-    #         Gamma.measure(2,full_path)
-        
