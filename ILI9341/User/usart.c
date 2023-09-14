@@ -8,7 +8,7 @@ u8 opcode = 0x00;
 u8 data = 0x00;
 u16 combined_color = 0x0000;
 u8 gamma_setting = 0xFF; // 0x00 cause error 
-extern u8 PositiveGamma_setting[15];
+extern u8 Gamma_setting[15];
 
 /*
 extern u8 PositiveGamma_value_VP63 ;
@@ -135,9 +135,9 @@ void USART3_IRQHandler (void)
 				FreeList(first);
 				break;
 			case 0x09:
-				for (int i = 0; i < 15 ; i ++)
+				for (int i = 0; i < 30 ; i ++)
 				{
-					USART_SendData(USART3,*(PositiveGamma_setting + i));
+					USART_SendData(USART3,*(Gamma_setting + i));
 					Delay_ms(1);
 				}
 				break;	
@@ -148,14 +148,14 @@ void USART3_IRQHandler (void)
 				gamma_setting = ((gamma_setting & ~0xF0)) | data <<4 ;
 				break;
 			case 0x0C :
-				LCD_setPositiveGamma(first_8, PositiveGamma_setting);
+				LCD_setGamma(first_8, Gamma_setting);
 				FreeList_8(first_8);
 				break;
 			case 0x0D :
 				Push_back_8(gamma_setting);
 				break;
 			case 0x0E :
-				LCD_TestSetGamma(PositiveGamma_setting);
+				//LCD_TestSetGamma(Gamma_setting);
 				break;	
 			case 0x0F :
 				NVIC_SystemReset();

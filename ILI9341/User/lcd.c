@@ -4,9 +4,10 @@
 #include "STDLIB.H"
 
 
-u8 PositiveGamma_setting [15]  = {0x0F,0x28,0x29,0x0D,0x11,0x09,0x54,
-																  0xA8,0x46,0x0F,0x1A,0x0E,0x14,0x0C,0x00};
-									
+u8 Gamma_setting [30]  = {0x0F,0x28,0x29,0x0D,0x11,0x09,0x54,
+													0xA8,0x46,0x0F,0x1A,0x0E,0x14,0x0C,0x00, // positive gamma setting
+													0x00,0x1B,0x1E,0x07,0x13,0x07,0x2A,0x47, // negative gamma setting
+													0x39,0x03,0x09,0x0C,0x35,0x3D,0x0F };			
 
 void LCD_Init()	
 {
@@ -269,50 +270,37 @@ void LCD_showPattern(Node* first)
 
 
 
-void LCD_setPositiveGamma(Node_8* first_8, u8* PositiveGamma_setting)
+void LCD_setGamma(Node_8* first_8, u8* Gamma_setting)
 {
 	Node_8* node_8 = first_8;
 	LCD_Write_Command(0xE0);
 	int i = 0;
-		while (node_8 != NULL) 
+		while (node_8 != NULL && i <30) 
 		{
-      LCD_Write_Data(node_8->data);
-			*(PositiveGamma_setting + i) = node_8->data; 
-			node_8 = node_8->nextnode_8;
-			i++;
-		}
-		
-	node_8 = first_8;
-	LCD_Write_Command(0xE1);
-	i = 0;
-		while (node_8 != NULL) 
-		{
-      LCD_Write_Data(node_8->data);
-			*(PositiveGamma_setting + i) = node_8->data; 
-			node_8 = node_8->nextnode_8;
-			i++;
+			if(i==15)
+				{
+					LCD_Write_Command(0xE1);
+					LCD_Write_Data(node_8->data);
+					*(Gamma_setting + i) = node_8->data; 
+					node_8 = node_8->nextnode_8;
+					i++;
+				}				
+			else
+				{
+					LCD_Write_Data(node_8->data);
+					*(Gamma_setting + i) = node_8->data; 
+					node_8 = node_8->nextnode_8;
+					i++;
+				}		
 		}
 }
-	
 
-
+/*
 void LCD_TestSetGamma(u8* PositiveGamma_setting)
 {
-	LCD_Write_Command(0xE0);
-	for (u8 i = 0 ; i < 15 ; i++)
-	{
-		*(PositiveGamma_setting + i) = 0xFF;
-		LCD_Write_Data(*(PositiveGamma_setting + i));
-	}
-	
-	LCD_Write_Command(0xE1);
-	for (u8 i = 0 ; i < 15 ; i++)
-	{
-		*(PositiveGamma_setting + i) = 0xFF;
-		LCD_Write_Data(*(PositiveGamma_setting + i));
-	}
 
 }
+*/
 
 
 
