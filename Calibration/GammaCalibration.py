@@ -73,16 +73,17 @@ if __name__ == '__main__':
     time.sleep(1)
     Gamma = Gamma_class()
     Gammasetting = LoadGamma_setting() # // load initial gamma setting, prepare to be modified
-    BGammasetting = Gammasetting
-    for j in range (0,3): # // modify gamma for 0 ~ 200 times
-        for i in range(0,len(Gammasetting)): # // modify gamma setting
+    BGammasetting = Gammasetting.copy() # // test if affect rest of test
+
+    for i in range(1,len(Gammasetting)): # // modify gamma setting
+        for j in range (0,3): # // modify gamma for 0 ~ 3 times    
             BGammasetting[i] = (Gammasetting[i]+j*5)
         # Gammasetting[0] + j
             WriteGamma_setting(BGammasetting) # // apply modified gamma setting
             AGammasetting = LoadGamma_setting() # // load modified gamma setting
-            for i in range(0,len(AGammasetting)): # // turn modified gamma setting to hex adn store in csv
-                AGammasetting[i] = (hex(AGammasetting[i]))
-            Filename = str(j) + '_' + 'Gamma'
+            for k in range(0,len(AGammasetting)): # // turn modified gamma setting to hex and store in csv
+                AGammasetting[k] = (hex(AGammasetting[k]))
+            Filename = str(i) + '_' + str(j) + '_' + 'Gamma'
             filename = Filename + '.csv'
             full_path = os.path.join('GammaData',filename)
             with open(full_path, 'a') as fd:
