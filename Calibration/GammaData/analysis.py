@@ -4,7 +4,7 @@ import numpy as np
 import glob
 import os
 
-datapath = os.path.join('GammaData','Firstrecord')
+datapath = os.path.join('GammaData','Secondrecord')
 csvfilepath = glob.glob(os.path.join(datapath, '*.csv'))
 
 def data_loading (path):
@@ -35,7 +35,7 @@ data_loading(csvfilepath)
 
 
 
-for i in range(1,4):
+for i in range(0,4):
     for j in range(0,2):
         plt.scatter(globals()['temp_grayscale_' + str(i) + '_' +str(j) + '_Gamma'] \
         ,globals()['temp_brightness_' + str(i) + '_' +str(j) + '_Gamma' ],s=5)
