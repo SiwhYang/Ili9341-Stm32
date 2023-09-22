@@ -4,7 +4,8 @@ import numpy as np
 import glob
 import os
 
-datapath = os.path.join('GammaData','Secondrecord')
+# datapath = os.path.join('GammaData','Inverse_alignment')
+datapath = os.path.join('GammaData','alignment')
 csvfilepath = glob.glob(os.path.join(datapath, '*.csv'))
 
 def data_loading (path):
@@ -25,7 +26,7 @@ def data_loading (path):
                 globals()['temp_x_' + str(name)].append(float(i[2]))
 
 temp_grayscale = np.arange(0,255)
-idea_max_brigthness = 125 # np.max(temp_brightness)
+idea_max_brigthness = 150 # np.max(temp_brightness)
 idea_min_brigthness = 0 # np.min(temp_brightness)
 idea_y = [] # max_brigthness*(temp_grayscale/255)**2.2
 for gray in temp_grayscale :
@@ -35,17 +36,14 @@ data_loading(csvfilepath)
 
 
 
-for i in range(0,4):
-    for j in range(0,2):
+for i in range(8,9): # // first
+    for j in range(55,65): #// second
         plt.scatter(globals()['temp_grayscale_' + str(i) + '_' +str(j) + '_Gamma'] \
-        ,globals()['temp_brightness_' + str(i) + '_' +str(j) + '_Gamma' ],s=5)
-
-# plt.scatter(temp_grayscale_1_0_Gamma,temp_brightness_1_0_Gamma,s=5)
-# plt.scatter(temp_grayscale_1_1_Gamma,temp_brightness_1_1_Gamma,s=5)
-# plt.scatter(temp_grayscale_1_2_Gamma,temp_brightness_1_2_Gamma,s=5)
-# plt.scatter(temp_grayscale_2_0_Gamma,temp_brightness_2_0_Gamma,s=5)
-# plt.scatter(temp_grayscale_2_1_Gamma,temp_brightness_2_1_Gamma,s=5)
-
+        ,globals()['temp_brightness_' + str(i) + '_' +str(j) + '_Gamma' ],s=5, label = str(i) + '_' +str(j) )
+        plt.legend()
+    print(i)
+ 
+# plt.scatter(temp_grayscale_0_5_Gamma,temp_brightness_0_5_Gamma,s=5)
 plt.scatter(temp_grayscale, idea_y,s=5)
 plt.show()
 
@@ -54,33 +52,6 @@ plt.show()
 
 
 
-# with open('./GammaData/1_1_Gamma.csv', newline='') as f:
-#     reader = csv.reader(f)
-#     next(reader)
-#     data = list(reader)
-#     res = [ele for ele in data if ele != []]
-  
-# temp_grayscale = []
-# temp_brightness = []
-# temp_x = []
-
-# for i in res :
-#     temp_grayscale.append(float(i[0]))
-#     temp_brightness.append(float(i[1]))
-#     temp_x.append(float(i[2]))
-
-# max_brigthness = np.max(temp_brightness)
-# min_brigthness = np.min(temp_brightness)
-
-# idea_y = [] # max_brigthness*(temp_grayscale/255)**2.2
-
-# for gray in temp_grayscale :
-#     idea_y.append( (max_brigthness*(gray/255)**2.2) + min_brigthness*(1 - (gray/255)**2.2)  )
-    
-
-# plt.scatter(temp_grayscale,temp_brightness,s=5)
-# plt.scatter(temp_grayscale, idea_y,s=5)
-# plt.show()
 
 
 

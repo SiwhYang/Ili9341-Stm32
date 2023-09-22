@@ -191,7 +191,7 @@ void LCD_Init()
 void SPIv_WriteData(u8 Data)
 {
 
-	for(int i = 0 ;i<8;i++)
+	for(int i = 0 ; i < 8 ; i++)
 	{
 		LCD_SCK_0;
 		if (Data&0x80)

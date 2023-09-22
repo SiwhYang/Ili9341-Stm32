@@ -12,7 +12,7 @@ class Gamma_class():
 
 
     def measure(self,times,Filename):
-        for i in range(0,255):
+        for i in range(0,255,4): # (0,255) change to measure every 4 step
             j = 0
             while j <= times :
                 self.measure_one_step(i,Filename)
