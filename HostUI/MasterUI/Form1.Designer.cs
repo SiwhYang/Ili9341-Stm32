@@ -38,15 +38,17 @@
             this.Show_Blue = new System.Windows.Forms.Button();
             this.Image = new System.Windows.Forms.Label();
             this.Screen = new System.Windows.Forms.Label();
+            this.Gamma = new System.Windows.Forms.Label();
+            this.gamma1 = new System.Windows.Forms.Button();
+            this.gamma2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // Load
             // 
-            this.Load.Location = new System.Drawing.Point(128, 44);
-            this.Load.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Load.Location = new System.Drawing.Point(114, 37);
             this.Load.Name = "Load";
-            this.Load.Size = new System.Drawing.Size(109, 50);
+            this.Load.Size = new System.Drawing.Size(97, 42);
             this.Load.TabIndex = 0;
             this.Load.Text = "Load";
             this.Load.UseVisualStyleBackColor = true;
@@ -54,20 +56,18 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(449, 16);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox2.Location = new System.Drawing.Point(399, 13);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(480, 511);
+            this.pictureBox2.Size = new System.Drawing.Size(427, 426);
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // Send
             // 
-            this.Send.Location = new System.Drawing.Point(262, 44);
-            this.Send.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Send.Location = new System.Drawing.Point(233, 37);
             this.Send.Name = "Send";
-            this.Send.Size = new System.Drawing.Size(109, 50);
+            this.Send.Size = new System.Drawing.Size(97, 42);
             this.Send.TabIndex = 3;
             this.Send.Text = "Send";
             this.Send.UseVisualStyleBackColor = true;
@@ -75,9 +75,10 @@
             // 
             // Show_Red
             // 
-            this.Show_Red.Location = new System.Drawing.Point(128, 128);
+            this.Show_Red.Location = new System.Drawing.Point(114, 107);
+            this.Show_Red.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Show_Red.Name = "Show_Red";
-            this.Show_Red.Size = new System.Drawing.Size(109, 26);
+            this.Show_Red.Size = new System.Drawing.Size(97, 22);
             this.Show_Red.TabIndex = 4;
             this.Show_Red.Text = "Show Red";
             this.Show_Red.UseVisualStyleBackColor = true;
@@ -85,10 +86,9 @@
             // 
             // Show_White
             // 
-            this.Show_White.Location = new System.Drawing.Point(262, 128);
-            this.Show_White.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Show_White.Location = new System.Drawing.Point(233, 107);
             this.Show_White.Name = "Show_White";
-            this.Show_White.Size = new System.Drawing.Size(109, 27);
+            this.Show_White.Size = new System.Drawing.Size(97, 22);
             this.Show_White.TabIndex = 5;
             this.Show_White.Text = "Show White";
             this.Show_White.UseVisualStyleBackColor = true;
@@ -96,9 +96,10 @@
             // 
             // Show_Black
             // 
-            this.Show_Black.Location = new System.Drawing.Point(262, 162);
+            this.Show_Black.Location = new System.Drawing.Point(233, 135);
+            this.Show_Black.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Show_Black.Name = "Show_Black";
-            this.Show_Black.Size = new System.Drawing.Size(109, 29);
+            this.Show_Black.Size = new System.Drawing.Size(97, 24);
             this.Show_Black.TabIndex = 6;
             this.Show_Black.Text = "Show Black";
             this.Show_Black.UseVisualStyleBackColor = true;
@@ -106,9 +107,10 @@
             // 
             // Show_Green
             // 
-            this.Show_Green.Location = new System.Drawing.Point(128, 163);
+            this.Show_Green.Location = new System.Drawing.Point(114, 136);
+            this.Show_Green.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Show_Green.Name = "Show_Green";
-            this.Show_Green.Size = new System.Drawing.Size(109, 28);
+            this.Show_Green.Size = new System.Drawing.Size(97, 23);
             this.Show_Green.TabIndex = 7;
             this.Show_Green.Text = "Show Green";
             this.Show_Green.UseVisualStyleBackColor = true;
@@ -116,9 +118,10 @@
             // 
             // Show_Blue
             // 
-            this.Show_Blue.Location = new System.Drawing.Point(128, 197);
+            this.Show_Blue.Location = new System.Drawing.Point(114, 164);
+            this.Show_Blue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Show_Blue.Name = "Show_Blue";
-            this.Show_Blue.Size = new System.Drawing.Size(109, 27);
+            this.Show_Blue.Size = new System.Drawing.Size(97, 22);
             this.Show_Blue.TabIndex = 8;
             this.Show_Blue.Text = "Show Blue";
             this.Show_Blue.UseVisualStyleBackColor = true;
@@ -127,26 +130,60 @@
             // Image
             // 
             this.Image.AutoSize = true;
-            this.Image.Location = new System.Drawing.Point(28, 60);
+            this.Image.Location = new System.Drawing.Point(25, 50);
             this.Image.Name = "Image";
-            this.Image.Size = new System.Drawing.Size(51, 18);
+            this.Image.Size = new System.Drawing.Size(42, 15);
             this.Image.TabIndex = 9;
             this.Image.Text = "Image";
             // 
             // Screen
             // 
             this.Screen.AutoSize = true;
-            this.Screen.Location = new System.Drawing.Point(31, 136);
+            this.Screen.Location = new System.Drawing.Point(28, 113);
             this.Screen.Name = "Screen";
-            this.Screen.Size = new System.Drawing.Size(55, 18);
+            this.Screen.Size = new System.Drawing.Size(45, 15);
             this.Screen.TabIndex = 10;
             this.Screen.Text = "Screen";
             // 
+            // Gamma
+            // 
+            this.Gamma.AutoSize = true;
+            this.Gamma.Location = new System.Drawing.Point(32, 217);
+            this.Gamma.Name = "Gamma";
+            this.Gamma.Size = new System.Drawing.Size(51, 15);
+            this.Gamma.TabIndex = 11;
+            this.Gamma.Text = "Gamma";
+            // 
+            // gamma1
+            // 
+            this.gamma1.Location = new System.Drawing.Point(114, 217);
+            this.gamma1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gamma1.Name = "gamma1";
+            this.gamma1.Size = new System.Drawing.Size(97, 22);
+            this.gamma1.TabIndex = 12;
+            this.gamma1.Text = "Gamma1.0";
+            this.gamma1.UseVisualStyleBackColor = true;
+            this.gamma1.Click += new System.EventHandler(this.gamma1_Click);
+            // 
+            // gamma2
+            // 
+            this.gamma2.Location = new System.Drawing.Point(233, 217);
+            this.gamma2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gamma2.Name = "gamma2";
+            this.gamma2.Size = new System.Drawing.Size(97, 22);
+            this.gamma2.TabIndex = 13;
+            this.gamma2.Text = "Gamma2.2";
+            this.gamma2.UseVisualStyleBackColor = true;
+            this.gamma2.Click += new System.EventHandler(this.gamma2_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(965, 540);
+            this.ClientSize = new System.Drawing.Size(858, 450);
+            this.Controls.Add(this.gamma2);
+            this.Controls.Add(this.gamma1);
+            this.Controls.Add(this.Gamma);
             this.Controls.Add(this.Screen);
             this.Controls.Add(this.Image);
             this.Controls.Add(this.Show_Blue);
@@ -157,7 +194,6 @@
             this.Controls.Add(this.Send);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.Load);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -178,6 +214,9 @@
         private System.Windows.Forms.Button Show_Blue;
         private System.Windows.Forms.Label Image;
         private System.Windows.Forms.Label Screen;
+        private System.Windows.Forms.Label Gamma;
+        private System.Windows.Forms.Button gamma1;
+        private System.Windows.Forms.Button gamma2;
     }
 }
 
