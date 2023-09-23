@@ -18,17 +18,22 @@ using System.Windows.Forms.VisualStyles;
 
 namespace MasterUI
 {
-    public partial class Form1 : Form
+    public partial class UI : Form
     {
-        public Form1()
+        public UI()
         {
             InitializeComponent();
+            this.Text = "LCD Host UI";
         }
         // SerialPort 
         SerialPort serialport = new SerialPort("COM5", 115200, Parity.None, 8, StopBits.One);
         // Image system
-        int imageWidth = 240;
-        int imageLength = 320;
+        //int imageWidth = 240;
+        //int imageLength = 320;
+        int imageWidth = 320;
+        int imageLength = 240;
+
+
         private byte[] imagedata = null;
         Bitmap result = null;
         private int[,] rgbhex = null;
@@ -114,6 +119,8 @@ namespace MasterUI
                     int usart_data_sendimage_save = (usart_data | 0x70);
                     byte[] b_save = BitConverter.GetBytes(usart_data_sendimage_save);
                     serialport.Write(b_save, 0, 1);
+
+                    
                 }
                 int usart_data_sendimage_show = (usart_data | 0x80);
                 byte[] b_show = BitConverter.GetBytes(usart_data_sendimage_show);

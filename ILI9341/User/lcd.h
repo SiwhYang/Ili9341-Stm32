@@ -64,6 +64,8 @@
 #define LCD_SetYCmd 0x2B
 #define LCD_Width 240
 #define LCD_Height 320
+//#define LCD_Width 320
+//#define LCD_Height 240
 #define WHITE           0xFFFF
 #define BLACK           0x0000
 #define BLUE            0x001F

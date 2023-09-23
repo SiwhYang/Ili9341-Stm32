@@ -87,9 +87,10 @@ void LCD_Init()
 	LCD_Write_Command(0xC7);    //VCM control2 
 	LCD_Write_Data(0XB7); 
 	LCD_Write_Command(0x36);    // Memory Access Control 
+	//LCD_Write_Data(0x08); vertical
+	LCD_Write_Data((1<<5)|(1<<6)|(1<<3));
 	
 	
-	LCD_Write_Data(0x08); 
 	LCD_Write_Command(0x3A);   
 	LCD_Write_Data(0x55); 
 	LCD_Write_Command(0xB1);   
@@ -239,9 +240,13 @@ void LCD_SetCursor(u16 Xpos, u16 Ypos)
 	LCD_Write_Command(LCD_SetXCmd);
 	LCD_Write_Data( Xpos >> 8);
 	LCD_Write_Data( Xpos & 0xFF);
+	LCD_Write_Data(0x01);
+	LCD_Write_Data(0x3f); // 0x013f = 319
 	LCD_Write_Command(LCD_SetYCmd);
 	LCD_Write_Data( Ypos >> 8);
 	LCD_Write_Data( Ypos & 0xFF);
+	LCD_Write_Data(0x00);
+	LCD_Write_Data(0xEF);  //0x00ef = 239
 }
 
 void LCD_Clear(u16 color)

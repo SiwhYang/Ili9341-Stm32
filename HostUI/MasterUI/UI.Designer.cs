@@ -1,6 +1,6 @@
 ﻿namespace MasterUI
 {
-    partial class Form1
+    partial class UI
     {
         /// <summary>
         /// 設計工具所需的變數。
@@ -58,7 +58,7 @@
             // 
             this.pictureBox2.Location = new System.Drawing.Point(399, 13);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(427, 426);
+            this.pictureBox2.Size = new System.Drawing.Size(427, 310);
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
@@ -75,7 +75,7 @@
             // 
             // Show_Red
             // 
-            this.Show_Red.Location = new System.Drawing.Point(114, 107);
+            this.Show_Red.Location = new System.Drawing.Point(114, 135);
             this.Show_Red.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Show_Red.Name = "Show_Red";
             this.Show_Red.Size = new System.Drawing.Size(97, 22);
@@ -86,7 +86,7 @@
             // 
             // Show_White
             // 
-            this.Show_White.Location = new System.Drawing.Point(233, 107);
+            this.Show_White.Location = new System.Drawing.Point(233, 156);
             this.Show_White.Name = "Show_White";
             this.Show_White.Size = new System.Drawing.Size(97, 22);
             this.Show_White.TabIndex = 5;
@@ -96,7 +96,7 @@
             // 
             // Show_Black
             // 
-            this.Show_Black.Location = new System.Drawing.Point(233, 135);
+            this.Show_Black.Location = new System.Drawing.Point(233, 183);
             this.Show_Black.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Show_Black.Name = "Show_Black";
             this.Show_Black.Size = new System.Drawing.Size(97, 24);
@@ -107,7 +107,7 @@
             // 
             // Show_Green
             // 
-            this.Show_Green.Location = new System.Drawing.Point(114, 136);
+            this.Show_Green.Location = new System.Drawing.Point(114, 193);
             this.Show_Green.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Show_Green.Name = "Show_Green";
             this.Show_Green.Size = new System.Drawing.Size(97, 23);
@@ -118,7 +118,7 @@
             // 
             // Show_Blue
             // 
-            this.Show_Blue.Location = new System.Drawing.Point(114, 164);
+            this.Show_Blue.Location = new System.Drawing.Point(114, 167);
             this.Show_Blue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Show_Blue.Name = "Show_Blue";
             this.Show_Blue.Size = new System.Drawing.Size(97, 22);
@@ -139,7 +139,7 @@
             // Screen
             // 
             this.Screen.AutoSize = true;
-            this.Screen.Location = new System.Drawing.Point(28, 113);
+            this.Screen.Location = new System.Drawing.Point(25, 167);
             this.Screen.Name = "Screen";
             this.Screen.Size = new System.Drawing.Size(45, 15);
             this.Screen.TabIndex = 10;
@@ -148,7 +148,7 @@
             // Gamma
             // 
             this.Gamma.AutoSize = true;
-            this.Gamma.Location = new System.Drawing.Point(32, 217);
+            this.Gamma.Location = new System.Drawing.Point(25, 292);
             this.Gamma.Name = "Gamma";
             this.Gamma.Size = new System.Drawing.Size(51, 15);
             this.Gamma.TabIndex = 11;
@@ -156,7 +156,7 @@
             // 
             // gamma1
             // 
-            this.gamma1.Location = new System.Drawing.Point(114, 217);
+            this.gamma1.Location = new System.Drawing.Point(114, 285);
             this.gamma1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gamma1.Name = "gamma1";
             this.gamma1.Size = new System.Drawing.Size(97, 22);
@@ -167,7 +167,7 @@
             // 
             // gamma2
             // 
-            this.gamma2.Location = new System.Drawing.Point(233, 217);
+            this.gamma2.Location = new System.Drawing.Point(233, 285);
             this.gamma2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gamma2.Name = "gamma2";
             this.gamma2.Size = new System.Drawing.Size(97, 22);
@@ -176,11 +176,11 @@
             this.gamma2.UseVisualStyleBackColor = true;
             this.gamma2.Click += new System.EventHandler(this.gamma2_Click);
             // 
-            // Form1
+            // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(858, 450);
+            this.ClientSize = new System.Drawing.Size(858, 345);
             this.Controls.Add(this.gamma2);
             this.Controls.Add(this.gamma1);
             this.Controls.Add(this.Gamma);
@@ -194,7 +194,7 @@
             this.Controls.Add(this.Send);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.Load);
-            this.Name = "Form1";
+            this.Name = "UI";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
