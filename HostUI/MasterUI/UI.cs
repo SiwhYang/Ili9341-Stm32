@@ -69,7 +69,7 @@ namespace MasterUI
             // laod image
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.InitialDirectory = "D\\rojects";
-            ofd.Filter = "*.jpg |*.JPG|*.png|*.PNG";
+            ofd.Filter = "*.jpg |*.JPG|*.png|*.PNG|*.BMP|*.bmp";
             //ofd.Filter = "*.png|*.PNG";
             ofd.FilterIndex = 2;
             ofd.RestoreDirectory = true;
@@ -119,7 +119,7 @@ namespace MasterUI
                     int usart_data_sendimage_save = (usart_data | 0x70);
                     byte[] b_save = BitConverter.GetBytes(usart_data_sendimage_save);
                     serialport.Write(b_save, 0, 1);
-
+                    
                     
                 }
                 int usart_data_sendimage_show = (usart_data | 0x80);
@@ -129,9 +129,55 @@ namespace MasterUI
             }
             serialport.Dispose();
             Console.WriteLine("Send finish");
-            this.imagedata = null;
-            this.rgbhex = null;
-            this.result = null;
+            //this.imagedata = null;
+            //this.rgbhex = null;
+            //this.result = null;
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int Width = this.rgbhex.GetLength(1); //240
+            int Height = this.rgbhex.GetLength(0); //320
+            serialport.Open();
+            int usart_data = 0x00;
+            int usart_data_sendimage_start = (usart_data | 0x60);
+            byte[] b_start = BitConverter.GetBytes(usart_data_sendimage_start);
+            serialport.Write(b_start, 0, 1);
+            for (int y = 0; y < Width; y++)
+            {
+                for (int x = 0; x < Height; x++)
+                {
+                    int usart_data_sendimage_data1 = (usart_data | (0x10)) | ((this.rgbhex[x, y]) & 0xF);
+                    byte[] b_data1 = BitConverter.GetBytes(usart_data_sendimage_data1);
+                    serialport.Write(b_data1, 0, 1);
+                    int usart_data_sendimage_data2 = (usart_data | (0x20)) | ((this.rgbhex[x, y] >> 4) & 0xF);
+                    byte[] b_data2 = BitConverter.GetBytes(usart_data_sendimage_data2);
+                    serialport.Write(b_data2, 0, 1);
+                    int usart_data_sendimage_data3 = (usart_data | (0x30)) | ((this.rgbhex[x, y] >> 8) & 0xF);
+                    byte[] b_data3 = BitConverter.GetBytes(usart_data_sendimage_data3);
+                    serialport.Write(b_data3, 0, 1);
+                    int usart_data_sendimage_data4 = (usart_data | (0x40)) | ((this.rgbhex[x, y] >> 12) & 0xF);
+                    byte[] b_data4 = BitConverter.GetBytes(usart_data_sendimage_data4);
+                    serialport.Write(b_data4, 0, 1);
+                    int usart_data_sendimage_save = (usart_data | 0xE0);
+                    byte[] b_save = BitConverter.GetBytes(usart_data_sendimage_save);
+                    serialport.Write(b_save, 0, 1);
+
+
+              
+                }
+                
+                int usart_data_sendimage_show = (usart_data | 0x80);
+                byte[] b_show = BitConverter.GetBytes(usart_data_sendimage_show);
+                serialport.Write(b_show, 0, 1);
+                Thread.Sleep(5); // ->> it would be needed to make sure ot work normally
+            }
+            serialport.Dispose();
+            Console.WriteLine("Send finish");
+            //this.imagedata = null;
+            //this.rgbhex = null;
+            //this.result = null;
         }
         private void pictureBox2_Click(object sender, EventArgs e)
         {

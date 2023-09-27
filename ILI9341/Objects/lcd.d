@@ -36,3 +36,4 @@
 .\objects\lcd.o: User\delay.h
 .\objects\lcd.o: User\list.h
 .\objects\lcd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\STDLIB.H
+.\objects\lcd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

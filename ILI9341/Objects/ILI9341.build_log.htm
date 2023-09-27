@@ -26,14 +26,20 @@ Project File Date:  09/11/2023
 
 <h2>Output:</h2>
 Build target 'Target 1'
+compiling usart.c...
+User\lcd.h(87): warning:  #1295-D: Deprecated declaration LCD_Init - give arg types
+  void LCD_Init();
+User\usart.h(12): warning:  #1295-D: Deprecated declaration SPI_ReadByte - give arg types
+  void SPI_ReadByte();
+User\usart.c: 2 warnings, 0 errors
 compiling lcd.c...
 User\lcd.h(87): warning:  #1295-D: Deprecated declaration LCD_Init - give arg types
   void LCD_Init();
 User\lcd.c: 1 warning, 0 errors
 linking...
-Program Size: Code=3852 RO-data=424 RW-data=100 ZI-data=36676  
+Program Size: Code=9232 RO-data=568 RW-data=104 ZI-data=36672  
 FromELF: creating hex file...
-".\Objects\ILI9341.axf" - 0 Error(s), 1 Warning(s).
+".\Objects\ILI9341.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\Projects\Embedded\Ili9341-Stm32\ILI9341\RTE

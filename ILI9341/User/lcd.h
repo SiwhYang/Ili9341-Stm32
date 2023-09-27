@@ -17,7 +17,7 @@
 #define LCD_DC_Pin     GPIO_Pin_2
 // LCD SPI input pin
 #define LCD_MOSI_Port  GPIOA
-#define LCD_MOSI_Pin	 GPIO_Pin_3
+#define LCD_MOSI_Pin	 GPIO_Pin_7
 #define LCD_SCK_Port   GPIOA
 #define LCD_SCK_Pin	   GPIO_Pin_4
 // LCD BackLight port
@@ -97,6 +97,6 @@ void LCD_showPattern(Node* first);
 // modify gamma
 void LCD_setGamma(Node_8* first_8, u8 *Gamma_setting);
 void LCD_TestSetGamma(u8* PositiveGamma_setting);
-
+u16 Gamma_mapping(u16 intputcolor);
 #endif
 

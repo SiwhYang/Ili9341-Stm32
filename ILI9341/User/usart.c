@@ -10,43 +10,7 @@ u16 combined_color = 0x0000;
 u8 gamma_setting = 0xFF; // 0x00 cause error 
 extern u8 Gamma_setting[15];
 
-/*
-extern u8 PositiveGamma_value_VP63 ;
-extern u8 PositiveGamma_value_VP62 ;
-extern u8 PositiveGamma_value_VP61 ;
-extern u8 PositiveGamma_value_VP59 ;
-extern u8 PositiveGamma_value_VP57 ;
-extern u8 PositiveGamma_value_VP50 ;
-extern u8 PositiveGamma_value_VP43 ;
-extern u8 PositiveGamma_value_VP29_36 ;
-extern u8 PositiveGamma_value_VP20 ;
-extern u8 PositiveGamma_value_VP13 ;
-extern u8 PositiveGamma_value_VP6 ;
-extern u8 PositiveGamma_value_VP4 ;
-extern u8 PositiveGamma_value_VP2 ;
-extern u8 PositiveGamma_value_VP1 ;
-extern u8 PositiveGamma_value_VP0 ;
-*/
 
-/*
-4 bits opcode 0 - 16 ->>  0x00 - 0x0F 
-
-0 : initial state
-
-1 : first u4 color
-2 : second u4 color
-3 : third u4 color 
-4 : fourth u4 color
-5 : start showing pure color
-
-6 : start writting list
-7 : pushback
-8 : showing pattern from list
-
-9 : start adjust Gamma
-10: 
-
-*/
 extern Node* current, * first, * previous;
 extern Node_8* current_8, * first_8, * previous_8;
 
@@ -128,8 +92,9 @@ void USART3_IRQHandler (void)
 				LCD_Write_Command(LCD_WriteGramCmd); 
 				break;
 			case 0x07:
-			  Push_back(combined_color);
-				break;
+				Push_back(combined_color);
+				//Push_back(Gamma_mapping(combined_color));
+			break;
 			case 0x08:
 				LCD_showPattern(first);
 				FreeList(first);
@@ -155,7 +120,7 @@ void USART3_IRQHandler (void)
 				Push_back_8(gamma_setting);
 				break;
 			case 0x0E :
-				//LCD_TestSetGamma(Gamma_setting);
+				Push_back(Gamma_mapping(combined_color));
 				break;	
 			case 0x0F :
 				NVIC_SystemReset();

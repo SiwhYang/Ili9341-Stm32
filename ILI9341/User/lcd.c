@@ -2,6 +2,7 @@
 #include "stm32f30x.h"
 #include "stm32f30x_spi.h"
 #include "STDLIB.H"
+#include "math.h"
 
 
 u8 Gamma_setting [30]  = {0x0F,0x28,0x29,0x0D,0x11,0x09,0x54,
@@ -189,6 +190,26 @@ void LCD_Init()
 
 }
 
+
+
+u16 Gamma_mapping(u16 intputcolor) 
+{
+	u16 newcolor = 0xffff;
+	int input_R = (intputcolor >> 0 &  (0x1F));
+	int input_G = (intputcolor >> 5 &  (0x3F));
+	int input_B = (intputcolor >> 11 & (0x1F));
+	
+	int output_R = pow(input_R, 2) / 32;
+	int output_G = pow(input_G, 2) / 64;
+	int output_B = pow(input_B, 2) / 32;
+
+	newcolor = (newcolor & (~0x001F)) | output_R << 0;
+	newcolor = (newcolor & (~0x07E0)) | output_G << 5;
+	newcolor = (newcolor & (~0xF800)) | output_B << 11 ;
+	return newcolor;
+}
+
+
 void SPIv_WriteData(u8 Data)
 {
 
@@ -275,6 +296,8 @@ void LCD_showPattern(Node* first)
 
 
 
+
+
 void LCD_setGamma(Node_8* first_8, u8* Gamma_setting)
 {
 	Node_8* node_8 = first_8;
@@ -300,12 +323,7 @@ void LCD_setGamma(Node_8* first_8, u8* Gamma_setting)
 		}
 }
 
-/*
-void LCD_TestSetGamma(u8* PositiveGamma_setting)
-{
 
-}
-*/
 
 
 
