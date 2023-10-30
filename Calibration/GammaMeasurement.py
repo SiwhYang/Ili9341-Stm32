@@ -60,6 +60,26 @@ class Gamma_class():
         ser.write(byte_array) 
         ser.close() 
 
+    def Color_send2Board_sequence(self,grayscale_R,grayscale_G,grayscale_B) :
+        ser = serial.Serial( port='COM5', baudrate=115200, parity=serial.PARITY_NONE,\
+                    stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)  
+        RGB565_hex = self.Color2RGB565(grayscale_R,grayscale_G,grayscale_B)
+        send_usart = 0
+        send_start = (send_usart | (0x60))  # // 0x60 = 96 in decimal 
+        send_data1 = (send_usart | (0x10)) | ((RGB565_hex >> 0 ) & 0xF)
+        send_data2 = (send_usart | (0x20)) | ((RGB565_hex >> 4 ) & 0xF)
+        send_data3 = (send_usart | (0x30)) | ((RGB565_hex >> 8 ) & 0xF)
+        send_data4 = (send_usart | (0x40)) | ((RGB565_hex >> 12) & 0xF)
+        send_show =  (send_usart | (0x50))
+        
+        command_array = [send_start, send_data1,send_data2,send_data3,send_data4,send_show ]
+        byte_array = bytearray(command_array)
+        time.sleep(0.01)
+        ser.write(byte_array) 
+        ser.close()
+
+    
+
 
 
     def GrayScale2RGB565(self,grayscale):
@@ -68,6 +88,15 @@ class Gamma_class():
         R_hex = int(grayscale/8)
         G_hex = int(grayscale/4)
         B_hex = int(grayscale/8)
+        RGB565_hex = (((((temp_hex | R_hex) << 6 ) | G_hex) << 5) | B_hex)
+        return RGB565_hex
+
+    def Color2RGB565(self,grayscale_R,grayscale_G,grayscale_B):
+        #  // grayscale 0 ~ 255
+        temp_hex = 0
+        R_hex = int(grayscale_R/8)
+        G_hex = int(grayscale_G/4)
+        B_hex = int(grayscale_B/8)
         RGB565_hex = (((((temp_hex | R_hex) << 6 ) | G_hex) << 5) | B_hex)
         return RGB565_hex
 

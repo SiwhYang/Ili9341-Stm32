@@ -192,6 +192,7 @@ void LCD_Init()
 
 
 
+
 u16 Gamma_mapping(u16 intputcolor) 
 {
 	u16 newcolor = 0xffff;
