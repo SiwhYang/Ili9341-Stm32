@@ -98,5 +98,6 @@ void LCD_showPattern(Node* first);
 void LCD_setGamma(Node_8* first_8, u8 *Gamma_setting);
 void LCD_TestSetGamma(u8* PositiveGamma_setting);
 u16 Gamma_mapping(u16 intputcolor);
+u16 CCM_Mapping(u16 intputcolor, double CCM [9]);
 #endif
 

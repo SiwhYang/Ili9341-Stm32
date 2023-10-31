@@ -10,6 +10,13 @@ u8 Gamma_setting [30]  = {0x0F,0x28,0x29,0x0D,0x11,0x09,0x54,
 													0x00,0x1B,0x1E,0x07,0x13,0x07,0x2A,0x47, // negative gamma setting
 													0x39,0x03,0x09,0x0C,0x35,0x3D,0x0F };			
 
+													
+double CCM [9] = {1.00000000e+00  ,3.30284960e-17   , 6.94194585e-19,
+									6.41495778e-17  , 7.27697666e-01  , 2.53876955e-18,
+									5.17872161e-18  , 1.21914119e-17  , 4.64322697e-01 };
+
+
+													
 void LCD_Init()	
 {
 	// init SPI
@@ -190,8 +197,23 @@ void LCD_Init()
 
 }
 
+u16 CCM_Mapping(u16 intputcolor, double CCM [9])
+{
+	u16 newcolor = 0xffff;
+	int input_R = (intputcolor >> 0 &  (0x1F));
+	int input_G = (intputcolor >> 5 &  (0x3F));
+	int input_B = (intputcolor >> 11 & (0x1F));
+	
+	int output_R = (CCM[2] + CCM[5] + CCM[8] ) * input_R ;//(CCM[0] + CCM[3] + CCM[6] ) * input_R ;
+	int output_G = (CCM[1] + CCM[4] + CCM[7] ) * input_G ; //(CCM[1] + CCM[4] + CCM[7] ) * input_G ;
+	int output_B = (CCM[0] + CCM[3] + CCM[6] ) * input_B ;//(CCM[2] + CCM[5] + CCM[8] ) * input_B ;
+	
+	newcolor = (newcolor & (~0x001F)) | output_R << 0;
+	newcolor = (newcolor & (~0x07E0)) | output_G << 5;
+	newcolor = (newcolor & (~0xF800)) | output_B << 11 ;
+	return newcolor;
 
-
+}
 
 u16 Gamma_mapping(u16 intputcolor) 
 {

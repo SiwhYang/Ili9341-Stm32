@@ -10,7 +10,7 @@ u16 combined_color = 0x0000;
 u8 gamma_setting = 0xFF; // 0x00 cause error 
 extern u8 Gamma_setting[15];
 
-
+extern double CCM[9];
 extern Node* current, * first, * previous;
 extern Node_8* current_8, * first_8, * previous_8;
 
@@ -120,7 +120,7 @@ void USART3_IRQHandler (void)
 				Push_back_8(gamma_setting);
 				break;
 			case 0x0E :
-				Push_back(Gamma_mapping(combined_color));
+				Push_back(CCM_Mapping(combined_color,CCM));
 				break;	
 			case 0x0F :
 				NVIC_SystemReset();
